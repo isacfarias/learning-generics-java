@@ -6,9 +6,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.generics.app.dto.EmployeeDTO;
+
+import impls.Convertible;
+
 @Entity
 @Table(name = "tb_employee")
-public class Employee {
+public class Employee implements Convertible<EmployeeDTO> {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -63,6 +67,11 @@ public class Employee {
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
+	}
+
+	@Override
+	public EmployeeDTO convert() {
+		return new EmployeeDTO(this);
 	}
 
 }
